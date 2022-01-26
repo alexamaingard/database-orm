@@ -8,7 +8,7 @@ async function seed() {
         }
     });
 
-    //console.log('Customer created', createdCustomer);
+    console.log('Customer created', createdCustomer);
     
     // Add your code here
     const createdContact = await prisma.contact.create({
@@ -16,13 +16,38 @@ async function seed() {
             phone: '+411112222',
             email: 'alice@mail.com',
             customer: {
+                create: { 
+                    name: 'Alexa'
+                }
+            }
+        }
+    })
+    
+    console.log('Contact created', createdContact);
+
+    const createdMovie = await prisma.movie.create({
+        data: {
+            title: 'Harry Potter and the Sorcerer\'s Stone',
+            runtimeMins: 152,
+            screening: {
                 create: [
-                    { name: 'Alexa'}
+                    {startsAt: new Date('2022-01-29T15:45')},
+                    {startsAt: new Date('2022-01-31T15:45')}
                 ]
             }
         }
     })
-    console.log('Contact created', createdContact);
+    
+    console.log('Movie created', createdMovie);
+    /*
+    const createdScreening = await prisma.screening.create({
+        data: {
+            startsAt: new Date('2022-01-28T15:45')
+        }
+    })
+
+    console.log('Screening created', createdScreening);
+    */
     // Don't edit any of the code below this line
     process.exit(0);
 }
