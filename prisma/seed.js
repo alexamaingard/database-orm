@@ -29,25 +29,49 @@ async function seed() {
         data: {
             title: 'Harry Potter and the Sorcerer\'s Stone',
             runtimeMins: 152,
-            screening: {
-                create: [
-                    {startsAt: new Date('2022-01-29T15:45')},
-                    {startsAt: new Date('2022-01-31T15:45')}
-                ]
-            }
+            // screening: {
+            //     create: [
+            //         {startsAt: new Date('2022-01-29T15:45')},
+            //         {startsAt: new Date('2022-01-31T15:45')}
+            //     ]
+            // }
         }
     })
     
     console.log('Movie created', createdMovie);
-    /*
+    
+    const createdScreen = await prisma.screen.create({
+        data: {
+            number: 1
+            // screening: {
+            //     create: [
+            //         {startsAt: new Date('2022-01-29T18:45')},
+            //         {startsAt: new Date('2022-01-31T18:45')}
+            //     ]
+            // }
+        }
+    })
+
+    console.log('Screen created', createdScreen);
+
     const createdScreening = await prisma.screening.create({
         data: {
-            startsAt: new Date('2022-01-28T15:45')
+            startsAt: new Date('2022-01-28T15:45'),
+            movie: {
+                connect: {
+                    id: createdMovie.id
+                }
+            },
+            screen: {
+                connect: {
+                    id: createdScreen.id
+                }
+            }
         }
     })
 
     console.log('Screening created', createdScreening);
-    */
+
     // Don't edit any of the code below this line
     process.exit(0);
 }
