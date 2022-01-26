@@ -9,8 +9,19 @@ datasource db {
 }
 
 model Customer {
-  id        Int      @id @default(autoincrement())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          Int       @id @default(autoincrement())
+  contact     Contact?  @relation(fields: [contactId], references: [id])
+  contactId   Int?
+  name        String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Contact {
+  id          Int       @id @default(autoincrement())
+  customer    Customer []
+  phone       String
+  email       String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
